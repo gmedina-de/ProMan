@@ -51,4 +51,11 @@ public class Resource {
         this.idProyecto = idProyecto;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
+
 }

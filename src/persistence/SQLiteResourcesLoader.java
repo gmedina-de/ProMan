@@ -11,14 +11,14 @@ import model.Resource;
 
 public class SQLiteResourcesLoader {
 
-    public static ArrayList<Resource> getResources(String projectId) {
+    public static ArrayList<Resource> getResources(int projectId) {
         return Try.of(() -> DriverManager.getConnection("jdbc:sqlite:database.db"))
                 .mapTry((Connection connection) -> connection.createStatement())
                 .mapTry((Statement statement) -> getResourcesFromDB(statement, projectId))
                 .get();
     }
 
-    private static ArrayList<Resource> getResourcesFromDB(Statement statement, String projectId) throws SQLException {
+    private static ArrayList<Resource> getResourcesFromDB(Statement statement, int projectId) throws SQLException {
         ArrayList<Resource> resources = new ArrayList<>();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM RECURSO WHERE Proyecto='" + projectId + "'");
 

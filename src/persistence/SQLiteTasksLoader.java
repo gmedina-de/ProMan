@@ -15,19 +15,19 @@ import model.Task;
  */
 public class SQLiteTasksLoader {
 
-    public static ArrayList<Task> getTasks() {
+    public static ArrayList<Task> getTasks(int idProyecto) {
         return Try.of(() -> DriverManager.getConnection("jdbc:sqlite:database.db"))
                 .mapTry((Connection connection) -> connection.createStatement())
-                .mapTry((Statement statement) -> getTasksFromDB(statement))
+                .mapTry((Statement statement) -> getTasksFromDB(statement, idProyecto))
                 .get();
     }
 
-    private static ArrayList<Task> getTasksFromDB(Statement statement) throws SQLException {
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Tarea");
+    private static ArrayList<Task> getTasksFromDB(Statement statement, int idProyecto) throws SQLException {
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Tarea WHERE Proyecto='" + idProyecto + "'");
         ArrayList<Task> tasks = new ArrayList<>();
         while (resultSet.next()) {
             tasks.add(new Task(resultSet.getInt("ID"), resultSet.getString("Nombre"), resultSet.getInt("DuracionEstimada"),
-                    resultSet.getInt("FechaInicio"), resultSet.getInt("FechaFin"), resultSet.getInt("Prioridad")));
+                    resultSet.getLong("FechaInicio"), resultSet.getLong("FechaFin"), resultSet.getInt("Prioridad"), resultSet.getInt("Proyecto")));
         }
 
         return tasks;
