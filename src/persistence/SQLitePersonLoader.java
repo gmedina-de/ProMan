@@ -21,7 +21,7 @@ public class SQLitePersonLoader {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM PERSONAL WHERE Nombre='" + name + "' AND Contraseña='" + password + "'");
         Person persona = null;
         if (resultSet.next()) 
-            persona = new Person(resultSet.getInt("ID"), resultSet.getString("Nombre"), resultSet.getString("Contraseña"), resultSet.getString("Rol"));
+            persona = new Person(resultSet.getInt("ID"), resultSet.getString("Nombre"), resultSet.getString("Contraseña"));
         
         return persona;
     }

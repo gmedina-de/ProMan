@@ -7,7 +7,7 @@ package view;
 
 import java.util.ArrayList;
 import model.Project;
-import persistence.SQLiteProjectLoader;
+import persistence.SQLiteProjectsLoader;
 
 /**
  *
@@ -233,7 +233,7 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void setListaTabla() {
-        ArrayList<Project> projects = SQLiteProjectLoader.getProjects();
+        ArrayList<Project> projects = SQLiteProjectsLoader.getProjects();
         listaTabla = new Object[projects.size()][2];
         for (int i = 0; i < projects.size(); i++) {
             listaTabla[i][0]= projects.get(i);

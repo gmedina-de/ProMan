@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javaslang.control.Try;
 import model.Project;
 
-public class SQLiteProjectLoader {
+public class SQLiteProjectsLoader {
 
     public static ArrayList<Project> getProjects() {
         return Try.of(() -> DriverManager.getConnection("jdbc:sqlite:database.db"))
