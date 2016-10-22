@@ -5,25 +5,33 @@
  */
 package view;
 
+import java.util.Date;
 import model.Task;
 import persistence.SQLiteAddTask;
+import persistence.SQLiteEditTask;
+import persistence.SQLiteRemoveTask;
 
 /**
  *
  * @author Zabai Armas
  */
-public class DialogoAñadirTarea extends javax.swing.JDialog {
+public class DialogoEditarTarea extends javax.swing.JDialog {
 
-    private int id;
+        private Task task;
     /**
      * Creates new form DialogoAñadirTarea
      */
-    public DialogoAñadirTarea(java.awt.Frame parent, boolean modal, int id) {
+    public DialogoEditarTarea(java.awt.Frame parent, boolean modal, Task task) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
         
-        this.id = id;
+        this.task = task;
+        
+        Name.setText(task.getNombre());
+        Description.setText("");
+        InitialDate.setDate(new Date());
+        FinalDate.setDate(new Date());
     }
 
     /**
@@ -43,7 +51,7 @@ public class DialogoAñadirTarea extends javax.swing.JDialog {
         FinDateInfo = new javax.swing.JLabel();
         InitialDate = new org.jdesktop.swingx.JXDatePicker();
         FinalDate = new org.jdesktop.swingx.JXDatePicker();
-        AddButton = new javax.swing.JButton();
+        EditButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Añadir tarea");
@@ -57,10 +65,10 @@ public class DialogoAñadirTarea extends javax.swing.JDialog {
 
         FinDateInfo.setText("Fecha final:");
 
-        AddButton.setText("Añadir Tarea");
-        AddButton.addActionListener(new java.awt.event.ActionListener() {
+        EditButton.setText("Editar Tarea");
+        EditButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddButtonActionPerformed(evt);
+                EditButtonActionPerformed(evt);
             }
         });
 
@@ -86,10 +94,10 @@ public class DialogoAñadirTarea extends javax.swing.JDialog {
                             .addComponent(Description))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 200, Short.MAX_VALUE)
+                        .addGap(0, 204, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(FinDateInfo)
-                            .addComponent(AddButton))
+                            .addComponent(EditButton))
                         .addGap(207, 207, 207))))
         );
         layout.setVerticalGroup(
@@ -110,26 +118,26 @@ public class DialogoAñadirTarea extends javax.swing.JDialog {
                     .addComponent(FinDateInfo)
                     .addComponent(FinalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(AddButton)
+                .addComponent(EditButton)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+    private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
         // TODO add your handling code here:
         int duration = (int) ((FinalDate.getDate().getTime() - InitialDate.getDate().getTime()) / (1000*60*60*24));
         int priority = 0;
-        SQLiteAddTask.addTask(Name.getText(), duration, priority, id);
+        SQLiteEditTask.editTask(task.getId(), Name.getText(), duration, priority, task.getIdProyecto());
         
         this.dispose();
-    }//GEN-LAST:event_AddButtonActionPerformed
+    }//GEN-LAST:event_EditButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddButton;
     private javax.swing.JTextField Description;
     private javax.swing.JLabel DescriptionInfo;
+    private javax.swing.JButton EditButton;
     private javax.swing.JLabel FinDateInfo;
     private org.jdesktop.swingx.JXDatePicker FinalDate;
     private javax.swing.JLabel IniDateInfo;
