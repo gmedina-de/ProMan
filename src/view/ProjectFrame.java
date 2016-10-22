@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import model.Project;
 import model.Resource;
 import model.Task;
+import persistence.SQLiteRemoveTask;
 import persistence.SQLiteResourcesLoader;
 import persistence.SQLiteTasksLoader;
 
@@ -143,8 +144,18 @@ public class ProjectFrame extends javax.swing.JFrame {
         });
 
         jButton5.setText("Eliminar Tarea");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Modificar Tarea");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -298,6 +309,18 @@ public class ProjectFrame extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        switch(ventana){
+            case 1:
+                DialogoAñadirTarea dialogoAñadir = new DialogoAñadirTarea(this, true, proyecto.getId());
+                dialogoAñadir.setVisible(true);
+                
+                cargarTablaDeTareas();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -305,6 +328,43 @@ public class ProjectFrame extends javax.swing.JFrame {
         ventana = 3;
         cambiarMenuControles();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        switch(ventana){
+            case 1:
+                if(tablaDeDatos.getSelectedRow() == -1) return;
+                
+                Task selectedTask = (Task) tablaDeDatos.getValueAt(tablaDeDatos.getSelectedRow(), tablaDeDatos.getSelectedColumn());
+                SQLiteRemoveTask.removeTask(selectedTask.getId(), selectedTask.getIdProyecto());
+                
+                cargarTablaDeTareas();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        switch(ventana){
+            case 1:
+                if(tablaDeDatos.getSelectedRow() == -1) return;
+                
+                Task task = (Task) tablaDeDatos.getValueAt(tablaDeDatos.getSelectedRow(), tablaDeDatos.getSelectedColumn());
+                DialogoEditarTarea dialogoEditar = new DialogoEditarTarea(this, true, task);
+                dialogoEditar.setVisible(true);
+                
+                cargarTablaDeTareas();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

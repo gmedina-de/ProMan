@@ -56,7 +56,7 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         proyectos = new javax.swing.JTable();
-        botonAbrir1 = new javax.swing.JButton();
+        botonEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,10 +144,10 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
         proyectos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(proyectos);
 
-        botonAbrir1.setLabel("Eliminar");
-        botonAbrir1.addActionListener(new java.awt.event.ActionListener() {
+        botonEliminar.setLabel("Eliminar");
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAbrir1ActionPerformed(evt);
+                botonEliminarActionPerformed(evt);
             }
         });
 
@@ -163,7 +163,7 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botonAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonAbrir1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -174,7 +174,7 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAbrir)
-                    .addComponent(botonAbrir1))
+                    .addComponent(botonEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -196,17 +196,17 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
         refreshTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void botonAbrir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAbrir1ActionPerformed
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         // TODO add your handling code here:
         p = (Project) listaTabla[proyectos.getSelectedRow()][0];
         SQLiteRemoveProject.deleteProject(p.getId());
         refreshTable();
-    }//GEN-LAST:event_botonAbrir1ActionPerformed
+    }//GEN-LAST:event_botonEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAbrir;
-    private javax.swing.JButton botonAbrir1;
+    private javax.swing.JButton botonEliminar;
     private javax.swing.JTextArea descripcionProyecto;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

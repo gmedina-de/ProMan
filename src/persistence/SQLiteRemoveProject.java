@@ -21,11 +21,11 @@ public class SQLiteRemoveProject {
     public static ArrayList<Project> deleteProject(int id) {
         return Try.of(() -> DriverManager.getConnection("jdbc:sqlite:database.db"))
                 .mapTry((Connection connection) -> connection.createStatement())
-                .mapTry((Statement statement) -> deleteProjectDB(statement, id))
+                .mapTry((Statement statement) -> deleteProjectInDB(statement, id))
                 .get();
     }
 
-    private static ArrayList<Project> deleteProjectDB(Statement statement, int id) throws SQLException {
+    private static ArrayList<Project> deleteProjectInDB(Statement statement, int id) throws SQLException {
         statement.executeUpdate("DELETE FROM Proyecto "
                 + "WHERE ID = " + id + ";");
         return SQLiteProjectsLoader.getProjects();
