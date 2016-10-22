@@ -7,6 +7,7 @@ package view;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import model.Project;
 import persistence.SQLiteAddProject;
 import persistence.SQLiteProjectsLoader;
@@ -190,14 +191,16 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         SQLiteAddProject.addProject(nombreProyecto.getText(), descripcionProyecto.getText());
-        DefaultTableModel model = (DefaultTableModel) proyectos.getModel();
-        model.fireTableDataChanged();
+        nombreProyecto.setText("");
+        descripcionProyecto.setText("");
+        refreshTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonAbrir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAbrir1ActionPerformed
         // TODO add your handling code here:
         p = (Project) listaTabla[proyectos.getSelectedRow()][0];
         SQLiteRemoveProject.deleteProject(p.getId());
+        refreshTable();
     }//GEN-LAST:event_botonAbrir1ActionPerformed
 
 
@@ -222,5 +225,31 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
             listaTabla[i][0]= projects.get(i);
             listaTabla[i][1]= projects.get(i).getDescripcion();
         }
+    }
+    
+    private void refreshTable(){
+        setListaTabla();
+        
+        proyectos.setModel(new javax.swing.table.DefaultTableModel(
+            listaTabla,
+            new String [] {
+                "Proyecto","Descripción"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
     }
 }
