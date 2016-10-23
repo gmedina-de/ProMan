@@ -12,11 +12,12 @@ import persistence.SQLiteResourcesLoader;
 import persistence.SQLiteTasksLoader;
 
 public class ProjectFrame extends javax.swing.JFrame {
-    private final String title = "ProMan 0.2";
+
+    private final String title = "ProMan v0.2";
     private boolean proyectoAbierto = false;
     private Project proyecto;
     private ArrayList<Task> listaTareas;
-    private int ventana= 1; // 1= Tareas 2=Recursos 3=Riesgos
+    private int ventana = 1; // 1= Tareas 2=Recursos 3=Riesgos
 
     public Project getProyecto() {
         return proyecto;
@@ -28,8 +29,8 @@ public class ProjectFrame extends javax.swing.JFrame {
 
     public ProjectFrame() {
         initComponents();
-        setTitle(title);
-        setAvailability(jPanel1);
+        this.setTitle(title);
+        this.setAvailability(PestañaGestion);
         this.setLocationRelativeTo(null);
         pack();
         setResizable(true);
@@ -40,22 +41,22 @@ public class ProjectFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        PestañaGestion = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDeDatos = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        estimacionTabla = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
+        PanelFuncionalidades = new javax.swing.JPanel();
+        BotonGestionarTareas = new javax.swing.JButton();
+        BotonGestionarRecursos = new javax.swing.JButton();
+        BotonGestionarRiesgos = new javax.swing.JButton();
+        PanelAcciones = new javax.swing.JPanel();
+        BotonAñadir = new javax.swing.JButton();
+        BotonEliminar = new javax.swing.JButton();
+        BotonEditar = new javax.swing.JButton();
+        Logo = new javax.swing.JLabel();
+        PanelInfoAvanzada = new javax.swing.JPanel();
+        PanelEstimacion = new javax.swing.JScrollPane();
+        TablaEstimacion = new javax.swing.JTable();
+        PestañaPresupuesto = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         abrirProyecto = new javax.swing.JMenu();
@@ -79,118 +80,118 @@ public class ProjectFrame extends javax.swing.JFrame {
         tablaDeDatos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tablaDeDatos);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        PanelFuncionalidades.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setText("Gestionar Tareas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BotonGestionarTareas.setText("Gestionar Tareas");
+        BotonGestionarTareas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BotonGestionarTareasActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Gestionar Recursos");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BotonGestionarRecursos.setText("Gestionar Recursos");
+        BotonGestionarRecursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BotonGestionarRecursosActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Gestionar Riesgos");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        BotonGestionarRiesgos.setText("Gestionar Riesgos");
+        BotonGestionarRiesgos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BotonGestionarRiesgosActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelFuncionalidadesLayout = new javax.swing.GroupLayout(PanelFuncionalidades);
+        PanelFuncionalidades.setLayout(PanelFuncionalidadesLayout);
+        PanelFuncionalidadesLayout.setHorizontalGroup(
+            PanelFuncionalidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelFuncionalidadesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(PanelFuncionalidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BotonGestionarTareas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonGestionarRecursos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonGestionarRiesgos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        PanelFuncionalidadesLayout.setVerticalGroup(
+            PanelFuncionalidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelFuncionalidadesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(BotonGestionarTareas)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(BotonGestionarRecursos)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(BotonGestionarRiesgos)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        PanelAcciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton4.setText("Añadir Tarea");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        BotonAñadir.setText("Añadir Tarea");
+        BotonAñadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                BotonAñadirActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Eliminar Tarea");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        BotonEliminar.setText("Eliminar Tarea");
+        BotonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                BotonEliminarActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Modificar Tarea");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        BotonEditar.setText("Modificar Tarea");
+        BotonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                BotonEditarActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelAccionesLayout = new javax.swing.GroupLayout(PanelAcciones);
+        PanelAcciones.setLayout(PanelAccionesLayout);
+        PanelAccionesLayout.setHorizontalGroup(
+            PanelAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAccionesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton4)
+                .addComponent(BotonAñadir)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(BotonEliminar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addComponent(BotonEditar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        PanelAccionesLayout.setVerticalGroup(
+            PanelAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAccionesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                .addGroup(PanelAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotonAñadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonEliminar)
+                    .addComponent(BotonEditar))
                 .addContainerGap())
         );
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/LOGASO.png"))); // NOI18N
+        Logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Información sobre la tarea"));
+        PanelInfoAvanzada.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Información sobre la tarea"));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanelInfoAvanzadaLayout = new javax.swing.GroupLayout(PanelInfoAvanzada);
+        PanelInfoAvanzada.setLayout(PanelInfoAvanzadaLayout);
+        PanelInfoAvanzadaLayout.setHorizontalGroup(
+            PanelInfoAvanzadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 267, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PanelInfoAvanzadaLayout.setVerticalGroup(
+            PanelInfoAvanzadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        estimacionTabla.setBackground(new java.awt.Color(240, 240, 240));
-        estimacionTabla.setModel(new javax.swing.table.DefaultTableModel(
+        TablaEstimacion.setBackground(new java.awt.Color(240, 240, 240));
+        TablaEstimacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Fecha fin", null},
                 {"Duración completa", null},
@@ -212,80 +213,80 @@ public class ProjectFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        estimacionTabla.setFocusable(false);
-        estimacionTabla.setOpaque(false);
-        estimacionTabla.setRowSelectionAllowed(false);
-        estimacionTabla.setSelectionBackground(new java.awt.Color(240, 240, 240));
-        estimacionTabla.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        estimacionTabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane2.setViewportView(estimacionTabla);
-        if (estimacionTabla.getColumnModel().getColumnCount() > 0) {
-            estimacionTabla.getColumnModel().getColumn(0).setResizable(false);
-            estimacionTabla.getColumnModel().getColumn(1).setResizable(false);
+        TablaEstimacion.setFocusable(false);
+        TablaEstimacion.setOpaque(false);
+        TablaEstimacion.setRowSelectionAllowed(false);
+        TablaEstimacion.setSelectionBackground(new java.awt.Color(240, 240, 240));
+        TablaEstimacion.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        TablaEstimacion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        PanelEstimacion.setViewportView(TablaEstimacion);
+        if (TablaEstimacion.getColumnModel().getColumnCount() > 0) {
+            TablaEstimacion.getColumnModel().getColumn(0).setResizable(false);
+            TablaEstimacion.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout PestañaGestionLayout = new javax.swing.GroupLayout(PestañaGestion);
+        PestañaGestion.setLayout(PestañaGestionLayout);
+        PestañaGestionLayout.setHorizontalGroup(
+            PestañaGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PestañaGestionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(PestañaGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PanelFuncionalidades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PestañaGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(PanelAcciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PestañaGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanelInfoAvanzada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanelEstimacion, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        PestañaGestionLayout.setVerticalGroup(
+            PestañaGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PestañaGestionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PestañaGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PestañaGestionLayout.createSequentialGroup()
+                        .addComponent(PanelInfoAvanzada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(PanelEstimacion, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(PestañaGestionLayout.createSequentialGroup()
+                        .addGroup(PestañaGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(PanelAcciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(PestañaGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PanelFuncionalidades, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Gestión", jPanel1);
+        jTabbedPane1.addTab("Gestión", PestañaGestion);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("EN CONSTRUCCION");
+        jLabel1.setText("EN CONSTRUCCIÓN");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout PestañaPresupuestoLayout = new javax.swing.GroupLayout(PestañaPresupuesto);
+        PestañaPresupuesto.setLayout(PestañaPresupuestoLayout);
+        PestañaPresupuestoLayout.setHorizontalGroup(
+            PestañaPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PestañaPresupuestoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 966, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        PestañaPresupuestoLayout.setVerticalGroup(
+            PestañaPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PestañaPresupuestoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Presupuesto", jPanel2);
+        jTabbedPane1.addTab("Presupuesto", PestañaPresupuesto);
 
         abrirProyecto.setText("Proyectos");
         abrirProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -312,41 +313,35 @@ public class ProjectFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void abrirProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abrirProyectoMouseClicked
-//        GestorProyectos gestorProyectos = new GestorProyectos();
-//        gestorProyectos.setVisible(true);
-//        gestorProyectos.setLocationRelativeTo(this);
         DialogoGestorProyectos dialogoProyectos = new DialogoGestorProyectos(this, true);
         dialogoProyectos.setVisible(true);
-        proyecto = dialogoProyectos.getP();
+        proyecto = dialogoProyectos.getProyecto();
         proyectoAbierto = true;
-        
+
         reloadTitle();
-        
-        
-        refreshVentanaTareas();       
-        setAvailability(jPanel1);
-        System.out.println(proyecto);
+        refreshVentanaTareas();
+        setAvailability(PestañaGestion);
+        //System.out.println(proyecto);
     }//GEN-LAST:event_abrirProyectoMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BotonGestionarRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGestionarRecursosActionPerformed
         refreshVentanaRecursos();
         ventana = 2;
         cambiarMenuControles();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_BotonGestionarRecursosActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BotonGestionarTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGestionarTareasActionPerformed
         refreshVentanaTareas();
         ventana = 1;
         cambiarMenuControles();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BotonGestionarTareasActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        switch(ventana){
+    private void BotonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAñadirActionPerformed
+        switch (ventana) {
             case 1:
                 DialogoAñadirTarea dialogoAñadir = new DialogoAñadirTarea(this, true, proyecto.getId());
                 dialogoAñadir.setVisible(true);
-                
+
                 cargarTablaDeTareas();
                 break;
             case 2:
@@ -354,23 +349,24 @@ public class ProjectFrame extends javax.swing.JFrame {
             case 3:
                 break;
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_BotonAñadirActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void BotonGestionarRiesgosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGestionarRiesgosActionPerformed
         cargarTablaDeRiesgos();
         ventana = 3;
         cambiarMenuControles();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_BotonGestionarRiesgosActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        switch(ventana){
+    private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
+        switch (ventana) {
             case 1:
-                if(tablaDeDatos.getSelectedRow() == -1) return;
-                
+                if (tablaDeDatos.getSelectedRow() == -1) {
+                    return;
+                }
+
                 Task selectedTask = listaTareas.get(tablaDeDatos.getSelectedRow());
                 SQLiteRemoveTask.removeTask(selectedTask.getId(), selectedTask.getIdProyecto());
-                
+
                 refreshVentanaTareas();
                 break;
             case 2:
@@ -378,18 +374,19 @@ public class ProjectFrame extends javax.swing.JFrame {
             case 3:
                 break;
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_BotonEliminarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        switch(ventana){
+    private void BotonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEditarActionPerformed
+        switch (ventana) {
             case 1:
-                if(tablaDeDatos.getSelectedRow() == -1) return;
-                
+                if (tablaDeDatos.getSelectedRow() == -1) {
+                    return;
+                }
+
                 Task task = listaTareas.get(tablaDeDatos.getSelectedRow());
                 DialogoEditarTarea dialogoEditar = new DialogoEditarTarea(this, true, task);
                 dialogoEditar.setVisible(true);
-                
+
                 refreshVentanaTareas();
                 break;
             case 2:
@@ -397,28 +394,28 @@ public class ProjectFrame extends javax.swing.JFrame {
             case 3:
                 break;
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_BotonEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotonAñadir;
+    private javax.swing.JButton BotonEditar;
+    private javax.swing.JButton BotonEliminar;
+    private javax.swing.JButton BotonGestionarRecursos;
+    private javax.swing.JButton BotonGestionarRiesgos;
+    private javax.swing.JButton BotonGestionarTareas;
+    private javax.swing.JLabel Logo;
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JPanel PanelAcciones;
+    private javax.swing.JScrollPane PanelEstimacion;
+    private javax.swing.JPanel PanelFuncionalidades;
+    private javax.swing.JPanel PanelInfoAvanzada;
+    private javax.swing.JPanel PestañaGestion;
+    private javax.swing.JPanel PestañaPresupuesto;
+    private javax.swing.JTable TablaEstimacion;
     private javax.swing.JMenu abrirProyecto;
-    private javax.swing.JTable estimacionTabla;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tablaDeDatos;
     // End of variables declaration//GEN-END:variables
@@ -432,15 +429,14 @@ public class ProjectFrame extends javax.swing.JFrame {
             }
         }
     }
-    
-    
+
     private void cargarTablaDeRecursos() {
-        Object listaTabla [][];
+        Object listaTabla[][];
         ArrayList<Resource> recursos = SQLiteResourcesLoader.getResources(proyecto.getId());
         listaTabla = new Object[recursos.size()][2];
         for (int i = 0; i < recursos.size(); i++) {
-            listaTabla[i][0]= recursos.get(i);
-            listaTabla[i][1]= recursos.get(i).getValor();
+            listaTabla[i][0] = recursos.get(i);
+            listaTabla[i][1] = recursos.get(i).getValor();
         }
         tablaDeDatos.setModel(new javax.swing.table.DefaultTableModel(
                 listaTabla,
@@ -451,7 +447,6 @@ public class ProjectFrame extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class
             };
 
-            
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
@@ -464,63 +459,62 @@ public class ProjectFrame extends javax.swing.JFrame {
     }
 
     private void cargarTablaDeTareas() {
-        Object listaTabla [][];
+        Object listaTabla[][];
         listaTareas = SQLiteTasksLoader.getTasks(proyecto.getId());
-        int numColumnas = 6;
-        listaTabla = new Object[listaTareas.size()][numColumnas];
+        listaTabla = new Object[listaTareas.size()][6];
         for (int i = 0; i < listaTareas.size(); i++) {
-            listaTabla[i][0]= listaTareas.get(i);
-            listaTabla[i][1]= listaTareas.get(i).getIdPadre();
-            listaTabla[i][2]= listaTareas.get(i).getFechaInicioFormat();
-            listaTabla[i][3]= listaTareas.get(i).getFechaFinFormat();
-            listaTabla[i][4]= Utils.getPrioridad(listaTareas.get(i).getPrioridad());
-            listaTabla[i][5]= Utils.getEstado(listaTareas.get(i).getEstado());
+            listaTabla[i][0] = listaTareas.get(i);
+            listaTabla[i][1] = listaTareas.get(i).getIdPadre();
+            listaTabla[i][2] = listaTareas.get(i).getFechaInicioFormat();
+            listaTabla[i][3] = listaTareas.get(i).getFechaFinFormat();
+            listaTabla[i][4] = Utils.getPrioridad(listaTareas.get(i).getPrioridad());
+            listaTabla[i][5] = Utils.getEstado(listaTareas.get(i).getEstado());
         }
-        
+
         tablaDeDatos.setModel(new javax.swing.table.DefaultTableModel(
                 listaTabla,
                 new String[]{
-                    "Tarea","Padre","Fecha Inicio","Fecha Fin","Prioridad","Estado"}
+                    "Tarea", "Padre", "Fecha Inicio", "Fecha Fin", "Prioridad", "Estado"}
         ) {
             Class[] types = new Class[]{
                 java.lang.String.class, java.lang.String.class
             };
-            
+
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return false;
             }
         });
     }
-    
+
     private void cambiarMenuControles() {
-        switch (ventana){
+        switch (ventana) {
             case 1:
             default:
-                jButton4.setText("Añadir Tarea");
-                jButton5.setText("Eliminar Tarea");
-                jButton6.setText("Modificar Tarea");
+                BotonAñadir.setText("Añadir Tarea");
+                BotonEliminar.setText("Eliminar Tarea");
+                BotonEditar.setText("Modificar Tarea");
                 break;
             case 2:
-                jButton4.setText("Añadir Recurso");
-                jButton5.setText("Eliminar Recurso");
-                jButton6.setText("Modificar Recurso");
+                BotonAñadir.setText("Añadir Recurso");
+                BotonEliminar.setText("Eliminar Recurso");
+                BotonEditar.setText("Modificar Recurso");
                 break;
             case 3:
-                jButton4.setText("Añadir Riesgo");
-                jButton5.setText("Eliminar Riesgo");
-                jButton6.setText("Modificar Riesgo");
+                BotonAñadir.setText("Añadir Riesgo");
+                BotonEliminar.setText("Eliminar Riesgo");
+                BotonEditar.setText("Modificar Riesgo");
                 break;
         }
-        
+
     }
 
     private void cargarTablaDeRiesgos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     private void reloadTitle() {
-        setTitle(title+ "  -  "+ proyecto);
+        setTitle(title + "  -  " + proyecto);
     }
 
     private void refreshVentanaTareas() {
@@ -533,27 +527,27 @@ public class ProjectFrame extends javax.swing.JFrame {
         int cargaDeTrabajo = getDuracionCompleta();
         int tiempoTrabajado = getTiempoTrabajado();
         int tareasFinalizadas = getTareasFinalizadas();
-        
-        estimacionTabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Fecha fin", fechaFin},
-                {"Carga de trabajo(h)", cargaDeTrabajo},
-                {"Nº de tareas finalizadas", tareasFinalizadas},
-                {"Nº De tareas sin finalizar", listaTareas.size()-tareasFinalizadas},
-                {"Tiempo trabajado(h)", tiempoTrabajado},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "", ""
-            }
+
+        TablaEstimacion.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {"Fecha fin", fechaFin},
+                    {"Carga de trabajo(h)", cargaDeTrabajo},
+                    {"Nº de tareas finalizadas", tareasFinalizadas},
+                    {"Nº De tareas sin finalizar", listaTareas.size() - tareasFinalizadas},
+                    {"Tiempo trabajado(h)", tiempoTrabajado},
+                    {null, null},
+                    {null, null}
+                },
+                new String[]{
+                    "", ""
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                 false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
     }
@@ -561,8 +555,9 @@ public class ProjectFrame extends javax.swing.JFrame {
     private String getFechaMayor() {
         long fechaFin = 0;
         for (Task tarea : listaTareas) {
-            if (fechaFin < tarea.getFechaFin() )
-                fechaFin= tarea.getFechaFin();
+            if (fechaFin < tarea.getFechaFin()) {
+                fechaFin = tarea.getFechaFin();
+            }
         }
         return Utils.longDateToString(fechaFin);
     }
@@ -572,23 +567,25 @@ public class ProjectFrame extends javax.swing.JFrame {
         for (Task tarea : listaTareas) {
             total += tarea.getDuracionEstimada();
         }
-        return total*24;
+        return total * 24;
     }
 
     private int getTiempoTrabajado() {
         int total = 0;
-        for (Task tarea:  listaTareas) {
-            if (tarea.getEstado() == 2)
+        for (Task tarea : listaTareas) {
+            if (tarea.getEstado() == 2) {
                 total += tarea.getDuracionEstimada();
+            }
         }
-        return total*24;
+        return total * 24;
     }
 
     private int getTareasFinalizadas() {
         int total = 0;
-        for (Task tarea:  listaTareas) {
-            if (tarea.getEstado() == 2)
-                total ++;
+        for (Task tarea : listaTareas) {
+            if (tarea.getEstado() == 2) {
+                total++;
+            }
         }
         return total;
     }
@@ -598,5 +595,4 @@ public class ProjectFrame extends javax.swing.JFrame {
         cargarTablaEstimacion();
     }
 
-    
 }

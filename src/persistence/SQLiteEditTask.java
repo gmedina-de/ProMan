@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
@@ -13,11 +8,8 @@ import java.util.ArrayList;
 import javaslang.control.Try;
 import model.Task;
 
-/**
- *
- * @author Zabai Armas
- */
 public class SQLiteEditTask {
+
     public static ArrayList<Task> editTask(int id, String name, String descripcion, int duracion, long fechaInicio, long fechaFin, int priority, int idProyecto) {
         return Try.of(() -> DriverManager.getConnection("jdbc:sqlite:database.db"))
                 .mapTry((Connection connection) -> connection.createStatement())

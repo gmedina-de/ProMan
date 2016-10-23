@@ -3,17 +3,11 @@ package model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- *
- * @author alour
- */
 public class Task {
 
     private final int id;
     private String nombre;
     private String descripcion;
-
-
     private int duracionEstimada;
     private long fechaInicio;
     private long fechaFin;
@@ -50,7 +44,7 @@ public class Task {
     public void setIdPadre(int idPadre) {
         this.idPadre = idPadre;
     }
-    
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -109,15 +103,14 @@ public class Task {
 
     public String getFechaInicioFormat() {
         SimpleDateFormat df = new SimpleDateFormat("d/M/yyyy");
-        return (fechaInicio == 0)? "-": df.format(new Date(fechaInicio));
+        return (fechaInicio == 0) ? "-" : df.format(new Date(fechaInicio));
     }
 
     public String getFechaFinFormat() {
         SimpleDateFormat df = new SimpleDateFormat("d/M/yyyy");
-        return (fechaFin==0) ? "-" : df.format(new Date(fechaFin));
+        return (fechaFin == 0) ? "-" : df.format(new Date(fechaFin));
     }
-    
-    
+
     public int getPrioridad() {
         return prioridad;
     }
@@ -126,6 +119,5 @@ public class Task {
     public String toString() {
         return nombre;
     }
-    
-    
+
 }

@@ -20,9 +20,10 @@ public class SQLitePersonLoader {
     private static Person getUserFromDB(Statement statement, String name, String password) throws SQLException {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM PERSONAL WHERE Nombre='" + name + "' AND Contraseña='" + password + "'");
         Person persona = null;
-        if (resultSet.next()) 
+        if (resultSet.next()) {
             persona = new Person(resultSet.getInt("ID"), resultSet.getString("Nombre"), resultSet.getString("Contraseña"));
-        
+        }
+
         return persona;
     }
 }

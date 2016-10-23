@@ -21,9 +21,10 @@ public class SQLiteProjectsLoader {
     private static ArrayList<Project> getProjectsFromDB(Statement statement) throws SQLException {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Proyecto");
         ArrayList<Project> projects = new ArrayList<>();
-        while (resultSet.next()) 
+        while (resultSet.next()) {
             projects.add(new Project(resultSet.getInt("ID"), resultSet.getString("Nombre"), resultSet.getString("Descripcion")));
-        
+        }
+
         return projects;
     }
 }

@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import javaslang.control.Try;
 import model.Task;
 
-/**
- *
- * @author alour
- */
 public class SQLiteTasksLoader {
 
     public static ArrayList<Task> getTasks(int idProyecto) {
@@ -26,7 +22,7 @@ public class SQLiteTasksLoader {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Tarea WHERE Proyecto='" + idProyecto + "'");
         ArrayList<Task> tasks = new ArrayList<>();
         while (resultSet.next()) {
-            tasks.add(new Task(resultSet.getInt("ID"), resultSet.getString("Nombre"),resultSet.getString("Descripcion"), resultSet.getInt("DuracionEstimada"),
+            tasks.add(new Task(resultSet.getInt("ID"), resultSet.getString("Nombre"), resultSet.getString("Descripcion"), resultSet.getInt("DuracionEstimada"),
                     resultSet.getLong("FechaInicio"), resultSet.getLong("FechaFin"), resultSet.getInt("Prioridad"), resultSet.getInt("Estado"), resultSet.getInt("Padre"), resultSet.getInt("Proyecto")));
         }
 
