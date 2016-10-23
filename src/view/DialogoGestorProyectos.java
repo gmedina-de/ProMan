@@ -126,19 +126,17 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, true
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return false;
             }
         });
-        proyectos.setColumnSelectionAllowed(true);
+        proyectos.setOpaque(false);
+        proyectos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         proyectos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(proyectos);
 
@@ -170,8 +168,10 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAbrirActionPerformed
-        p = (Project)listaTabla[proyectos.getSelectedRow()][0];
-        dispose();
+        if ( proyectos.getSelectedRow() != -1 ){
+            p = (Project)listaTabla[proyectos.getSelectedRow()][0];
+            dispose();
+        }
     }//GEN-LAST:event_botonAbrirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -5,11 +5,11 @@
  */
 package view;
 
+import java.awt.Frame;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import model.Task;
-import persistence.SQLiteAddTask;
 import persistence.SQLiteEditTask;
-import persistence.SQLiteRemoveTask;
 
 /**
  *
@@ -17,11 +17,9 @@ import persistence.SQLiteRemoveTask;
  */
 public class DialogoEditarTarea extends javax.swing.JDialog {
 
-        private Task task;
-    /**
-     * Creates new form DialogoAñadirTarea
-     */
-    public DialogoEditarTarea(java.awt.Frame parent, boolean modal, Task task) {
+        private final Task task;
+
+    public DialogoEditarTarea(Frame parent, boolean modal, Task task) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
@@ -29,9 +27,10 @@ public class DialogoEditarTarea extends javax.swing.JDialog {
         this.task = task;
         
         Name.setText(task.getNombre());
-        Description.setText("");
-        InitialDate.setDate(new Date());
-        FinalDate.setDate(new Date());
+        descripcion.setText(task.getDescripcion());
+        InitialDate.setDate(new Date(task.getFechaInicio()));
+        FinalDate.setDate(new Date(task.getFechaFin()));
+        jComboBox1.setSelectedIndex(task.getPrioridad() - 1);
     }
 
     /**
@@ -43,32 +42,74 @@ public class DialogoEditarTarea extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        descripcion = new javax.swing.JTextArea();
         NameInfo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         Name = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         DescriptionInfo = new javax.swing.JLabel();
-        Description = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
         IniDateInfo = new javax.swing.JLabel();
         FinDateInfo = new javax.swing.JLabel();
         InitialDate = new org.jdesktop.swingx.JXDatePicker();
         FinalDate = new org.jdesktop.swingx.JXDatePicker();
-        EditButton = new javax.swing.JButton();
+        AddButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Añadir tarea");
+        setTitle("Modificar Tarea");
         setResizable(false);
 
-        NameInfo.setText("Nombre:");
+        descripcion.setColumns(20);
+        descripcion.setRows(5);
+        jScrollPane1.setViewportView(descripcion);
+
+        NameInfo.setText("Nombre*:");
+
+        jLabel1.setText("Prioridad:");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Media", "Baja" }));
 
         DescriptionInfo.setText("Descripción:");
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
 
         IniDateInfo.setText("Fecha inicio:");
 
         FinDateInfo.setText("Fecha final:");
 
-        EditButton.setText("Editar Tarea");
-        EditButton.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(IniDateInfo)
+                    .addComponent(FinDateInfo))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(InitialDate, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                    .addComponent(FinalDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(InitialDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IniDateInfo))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FinDateInfo)
+                    .addComponent(FinalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 38, Short.MAX_VALUE))
+        );
+
+        AddButton.setText("Modificar Tarea");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditButtonActionPerformed(evt);
+                AddButtonActionPerformed(evt);
             }
         });
 
@@ -77,72 +118,90 @@ public class DialogoEditarTarea extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(IniDateInfo)
                             .addComponent(NameInfo)
-                            .addComponent(DescriptionInfo))
-                        .addGap(51, 51, 51)
+                            .addComponent(DescriptionInfo)
+                            .addComponent(jLabel1))
+                        .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(InitialDate, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                                .addComponent(FinalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Name)
-                            .addComponent(Description))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 204, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(FinDateInfo)
-                            .addComponent(EditButton))
-                        .addGap(207, 207, 207))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(AddButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NameInfo)
                     .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DescriptionInfo)
-                    .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(IniDateInfo)
-                    .addComponent(InitialDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FinDateInfo)
-                    .addComponent(FinalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(EditButton)
-                .addContainerGap())
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(AddButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // TODO add your handling code here:
-        int duration = (int) ((FinalDate.getDate().getTime() - InitialDate.getDate().getTime()) / (1000*60*60*24));
-        int priority = 0;
-        SQLiteEditTask.editTask(task.getId(), Name.getText(), duration, priority, task.getIdProyecto());
-        
-        this.dispose();
-    }//GEN-LAST:event_EditButtonActionPerformed
+        try{
+            if (Name.getText().isEmpty())
+                throw new Exception();
+            int duration = (int) ((FinalDate.getDate().getTime() - InitialDate.getDate().getTime()) / (1000*60*60*24));
+            int priority = jComboBox1.getSelectedIndex() + 1;
+            SQLiteEditTask.editTask(task.getId(), Name.getText(),descripcion.getText(),duration, InitialDate.getDate().getTime(), FinalDate.getDate().getTime(), priority, task.getIdProyecto());
+            this.dispose();
+        }catch (Exception e ){
+
+            JOptionPane.showMessageDialog(this,"No se ha podido añadir la tarea.","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_AddButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Description;
+    private javax.swing.JButton AddButton;
     private javax.swing.JLabel DescriptionInfo;
-    private javax.swing.JButton EditButton;
     private javax.swing.JLabel FinDateInfo;
+    private javax.swing.JLabel FinDateInfo1;
+    private javax.swing.JLabel FinDateInfo2;
     private org.jdesktop.swingx.JXDatePicker FinalDate;
+    private org.jdesktop.swingx.JXDatePicker FinalDate1;
+    private org.jdesktop.swingx.JXDatePicker FinalDate2;
     private javax.swing.JLabel IniDateInfo;
+    private javax.swing.JLabel IniDateInfo1;
+    private javax.swing.JLabel IniDateInfo2;
     private org.jdesktop.swingx.JXDatePicker InitialDate;
+    private org.jdesktop.swingx.JXDatePicker InitialDate1;
+    private org.jdesktop.swingx.JXDatePicker InitialDate2;
     private javax.swing.JTextField Name;
     private javax.swing.JLabel NameInfo;
+    private javax.swing.JTextArea descripcion;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

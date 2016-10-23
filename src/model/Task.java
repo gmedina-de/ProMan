@@ -9,22 +9,54 @@ import java.util.Date;
  */
 public class Task {
 
-    private int id;
+    private final int id;
     private String nombre;
+    private String descripcion;
+
+
     private int duracionEstimada;
-    private Long fechaInicio;
-    private Long fechaFin;
+    private long fechaInicio;
+    private long fechaFin;
     private int prioridad;
+    private int estado;
+    private int idPadre;
     private int idProyecto;
 
-    public Task(int id, String nombre, int duracionEstimada, Long fechaInicio, Long fechaFin, int prioridad, int idProyecto) {
+    public Task(int id, String nombre, String descripcion, int duracionEstimada, long fechaInicio, long fechaFin, int prioridad, int estado, int idPadre, int idProyecto) {
         this.id = id;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.duracionEstimada = duracionEstimada;
-        this.fechaInicio = (fechaInicio != null) ? fechaInicio:0;
-        this.fechaFin = (fechaFin != null) ? fechaFin:0;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
         this.prioridad = prioridad;
+        this.estado = estado;
+        this.idPadre = idPadre;
         this.idProyecto = idProyecto;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getIdPadre() {
+        return idPadre;
+    }
+
+    public void setIdPadre(int idPadre) {
+        this.idPadre = idPadre;
+    }
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public void setIdProyecto(int idProyecto) {
@@ -43,11 +75,11 @@ public class Task {
         this.duracionEstimada = duracionEstimada;
     }
 
-    public void setFechaInicio(Long fechaInicio) {
+    public void setFechaInicio(long fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public void setFechaFin(Long fechaFin) {
+    public void setFechaFin(long fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -67,11 +99,11 @@ public class Task {
         return duracionEstimada;
     }
 
-    public Long getFechaInicio() {
+    public long getFechaInicio() {
         return fechaInicio;
     }
 
-    public Long getFechaFin() {
+    public long getFechaFin() {
         return fechaFin;
     }
 

@@ -3,6 +3,7 @@ package view;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import libs.Utils;
 import model.Project;
 import model.Resource;
 import model.Task;
@@ -11,9 +12,10 @@ import persistence.SQLiteResourcesLoader;
 import persistence.SQLiteTasksLoader;
 
 public class ProjectFrame extends javax.swing.JFrame {
-    private String title = "ProMan 0.2";
+    private final String title = "ProMan 0.2";
     private boolean proyectoAbierto = false;
     private Project proyecto;
+    private ArrayList<Task> listaTareas;
     private int ventana= 1; // 1= Tareas 2=Recursos 3=Riesgos
 
     public Project getProyecto() {
@@ -30,7 +32,7 @@ public class ProjectFrame extends javax.swing.JFrame {
         setAvailability(jPanel1);
         this.setLocationRelativeTo(null);
         pack();
-        setResizable(false);
+        setResizable(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -49,45 +51,35 @@ public class ProjectFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        estimacionTabla = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
-        Menu = new javax.swing.JMenu();
+        abrirProyecto = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ProMan");
 
+        tablaDeDatos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tablaDeDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Tarea", "Fecha Inicio", "Fecha Fin", "Riesgo", "Recurso"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
+        tablaDeDatos.setOpaque(false);
+        tablaDeDatos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tablaDeDatos);
-        if (tablaDeDatos.getColumnModel().getColumnCount() > 0) {
-            tablaDeDatos.getColumnModel().getColumn(0).setResizable(false);
-            tablaDeDatos.getColumnModel().getColumn(1).setResizable(false);
-            tablaDeDatos.getColumnModel().getColumn(2).setResizable(false);
-            tablaDeDatos.getColumnModel().getColumn(3).setResizable(false);
-            tablaDeDatos.getColumnModel().getColumn(4).setResizable(false);
-        }
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton1.setText("Gestionar Tareas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -131,10 +123,10 @@ public class ProjectFrame extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton4.setText("Añadir Tarea");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -181,21 +173,56 @@ public class ProjectFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Estimación"));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 228, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
-        );
-
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/LOGASO.png"))); // NOI18N
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Información sobre la tarea"));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 267, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        estimacionTabla.setBackground(new java.awt.Color(240, 240, 240));
+        estimacionTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Fecha fin", null},
+                {"Duración completa", null},
+                {"Nº de tareas finalizadas", null},
+                {"Nº De Tareas sin Finalizar", null},
+                {"", null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "", ""
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        estimacionTabla.setFocusable(false);
+        estimacionTabla.setOpaque(false);
+        estimacionTabla.setRowSelectionAllowed(false);
+        estimacionTabla.setSelectionBackground(new java.awt.Color(240, 240, 240));
+        estimacionTabla.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        estimacionTabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(estimacionTabla);
+        if (estimacionTabla.getColumnModel().getColumnCount() > 0) {
+            estimacionTabla.getColumnModel().getColumn(0).setResizable(false);
+            estimacionTabla.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -207,28 +234,33 @@ public class ProjectFrame extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE))))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Gestión", jPanel1);
@@ -242,26 +274,26 @@ public class ProjectFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 959, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 966, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Presupuesto", jPanel2);
 
-        Menu.setText("Proyectos");
-        Menu.addMouseListener(new java.awt.event.MouseAdapter() {
+        abrirProyecto.setText("Proyectos");
+        abrirProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuMouseClicked(evt);
+                abrirProyectoMouseClicked(evt);
             }
         });
-        MenuBar.add(Menu);
+        MenuBar.add(abrirProyecto);
 
         setJMenuBar(MenuBar);
 
@@ -279,7 +311,7 @@ public class ProjectFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuMouseClicked
+    private void abrirProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abrirProyectoMouseClicked
 //        GestorProyectos gestorProyectos = new GestorProyectos();
 //        gestorProyectos.setVisible(true);
 //        gestorProyectos.setLocationRelativeTo(this);
@@ -289,20 +321,21 @@ public class ProjectFrame extends javax.swing.JFrame {
         proyectoAbierto = true;
         
         reloadTitle();
-
-        cargarTablaDeTareas();
+        
+        
+        refreshVentanaTareas();       
         setAvailability(jPanel1);
         System.out.println(proyecto);
-    }//GEN-LAST:event_MenuMouseClicked
+    }//GEN-LAST:event_abrirProyectoMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        cargarTablaDeRecursos();
+        refreshVentanaRecursos();
         ventana = 2;
         cambiarMenuControles();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        cargarTablaDeTareas();
+        refreshVentanaTareas();
         ventana = 1;
         cambiarMenuControles();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -335,10 +368,10 @@ public class ProjectFrame extends javax.swing.JFrame {
             case 1:
                 if(tablaDeDatos.getSelectedRow() == -1) return;
                 
-                Task selectedTask = (Task) tablaDeDatos.getValueAt(tablaDeDatos.getSelectedRow(), tablaDeDatos.getSelectedColumn());
+                Task selectedTask = listaTareas.get(tablaDeDatos.getSelectedRow());
                 SQLiteRemoveTask.removeTask(selectedTask.getId(), selectedTask.getIdProyecto());
                 
-                cargarTablaDeTareas();
+                refreshVentanaTareas();
                 break;
             case 2:
                 break;
@@ -353,11 +386,11 @@ public class ProjectFrame extends javax.swing.JFrame {
             case 1:
                 if(tablaDeDatos.getSelectedRow() == -1) return;
                 
-                Task task = (Task) tablaDeDatos.getValueAt(tablaDeDatos.getSelectedRow(), tablaDeDatos.getSelectedColumn());
+                Task task = listaTareas.get(tablaDeDatos.getSelectedRow());
                 DialogoEditarTarea dialogoEditar = new DialogoEditarTarea(this, true, task);
                 dialogoEditar.setVisible(true);
                 
-                cargarTablaDeTareas();
+                refreshVentanaTareas();
                 break;
             case 2:
                 break;
@@ -368,8 +401,9 @@ public class ProjectFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu Menu;
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenu abrirProyecto;
+    private javax.swing.JTable estimacionTabla;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -382,8 +416,9 @@ public class ProjectFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tablaDeDatos;
     // End of variables declaration//GEN-END:variables
@@ -415,70 +450,47 @@ public class ProjectFrame extends javax.swing.JFrame {
             Class[] types = new Class[]{
                 java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean[]{
-                false, false
-            };
 
+            
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return false;
             }
         });
 
-        tablaDeDatos.setColumnSelectionAllowed(true);
-
-        tablaDeDatos.getTableHeader().setReorderingAllowed(false);
-
-        jScrollPane1.setViewportView(tablaDeDatos);
-
-        tablaDeDatos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     }
 
     private void cargarTablaDeTareas() {
         Object listaTabla [][];
-        ArrayList<Task> recursos = SQLiteTasksLoader.getTasks(proyecto.getId());
-        listaTabla = new Object[recursos.size()][5];
-        for (int i = 0; i < recursos.size(); i++) {
-            listaTabla[i][0]= recursos.get(i);
-            listaTabla[i][1]= recursos.get(i).getDuracionEstimada();
-            listaTabla[i][2]= recursos.get(i).getFechaInicioFormat();
-            listaTabla[i][3]= recursos.get(i).getFechaFinFormat();
-            listaTabla[i][4]= recursos.get(i).getPrioridad();
+        listaTareas = SQLiteTasksLoader.getTasks(proyecto.getId());
+        int numColumnas = 6;
+        listaTabla = new Object[listaTareas.size()][numColumnas];
+        for (int i = 0; i < listaTareas.size(); i++) {
+            listaTabla[i][0]= listaTareas.get(i);
+            listaTabla[i][1]= listaTareas.get(i).getIdPadre();
+            listaTabla[i][2]= listaTareas.get(i).getFechaInicioFormat();
+            listaTabla[i][3]= listaTareas.get(i).getFechaFinFormat();
+            listaTabla[i][4]= Utils.getPrioridad(listaTareas.get(i).getPrioridad());
+            listaTabla[i][5]= Utils.getEstado(listaTareas.get(i).getEstado());
         }
         
         tablaDeDatos.setModel(new javax.swing.table.DefaultTableModel(
                 listaTabla,
                 new String[]{
-                    "Tarea","Duracion Estimada","Fecha Inicio","Fecha Fin","Prioridad"}
+                    "Tarea","Padre","Fecha Inicio","Fecha Fin","Prioridad","Estado"}
         ) {
             Class[] types = new Class[]{
                 java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean[]{
-                false, false, false,false,false
-            };
-
-//            @Override
-//            public Class getColumnClass(int columnIndex) {
-//                return types[columnIndex];
-//            }
-
+            
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return false;
             }
         });
-
-        tablaDeDatos.setColumnSelectionAllowed(true);
-
-        tablaDeDatos.getTableHeader().setReorderingAllowed(false);
-
-        jScrollPane1.setViewportView(tablaDeDatos);
-
-        tablaDeDatos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
     }
     
     private void cambiarMenuControles() {
@@ -509,6 +521,81 @@ public class ProjectFrame extends javax.swing.JFrame {
 
     private void reloadTitle() {
         setTitle(title+ "  -  "+ proyecto);
+    }
+
+    private void refreshVentanaTareas() {
+        cargarTablaDeTareas();
+        cargarTablaEstimacion();
+    }
+
+    private void cargarTablaEstimacion() {
+        String fechaFin = getFechaMayor();
+        int cargaDeTrabajo = getDuracionCompleta();
+        int tiempoTrabajado = getTiempoTrabajado();
+        int tareasFinalizadas = getTareasFinalizadas();
+        
+        estimacionTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Fecha fin", fechaFin},
+                {"Carga de trabajo(h)", cargaDeTrabajo},
+                {"Nº de tareas finalizadas", tareasFinalizadas},
+                {"Nº De tareas sin finalizar", listaTareas.size()-tareasFinalizadas},
+                {"Tiempo trabajado(h)", tiempoTrabajado},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "", ""
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+    }
+
+    private String getFechaMayor() {
+        long fechaFin = 0;
+        for (Task tarea : listaTareas) {
+            if (fechaFin < tarea.getFechaFin() )
+                fechaFin= tarea.getFechaFin();
+        }
+        return Utils.longDateToString(fechaFin);
+    }
+
+    private int getDuracionCompleta() {
+        int total = 0;
+        for (Task tarea : listaTareas) {
+            total += tarea.getDuracionEstimada();
+        }
+        return total*24;
+    }
+
+    private int getTiempoTrabajado() {
+        int total = 0;
+        for (Task tarea:  listaTareas) {
+            if (tarea.getEstado() == 2)
+                total += tarea.getDuracionEstimada();
+        }
+        return total*24;
+    }
+
+    private int getTareasFinalizadas() {
+        int total = 0;
+        for (Task tarea:  listaTareas) {
+            if (tarea.getEstado() == 2)
+                total ++;
+        }
+        return total;
+    }
+
+    private void refreshVentanaRecursos() {
+        cargarTablaDeRecursos();
+        cargarTablaEstimacion();
     }
 
     
