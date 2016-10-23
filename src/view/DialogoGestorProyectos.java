@@ -11,7 +11,6 @@ import javax.swing.table.TableModel;
 import model.Project;
 import persistence.SQLiteAddProject;
 import persistence.SQLiteProjectsLoader;
-import persistence.SQLiteRemoveProject;
 
 /**
  *
@@ -56,7 +55,6 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         proyectos = new javax.swing.JTable();
-        botonEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,13 +142,6 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
         proyectos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(proyectos);
 
-        botonEliminar.setLabel("Eliminar");
-        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEliminarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,10 +151,7 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(panelAñadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(botonAbrir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -172,9 +160,7 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonAbrir)
-                    .addComponent(botonEliminar))
+                .addComponent(botonAbrir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -196,17 +182,9 @@ public class DialogoGestorProyectos extends javax.swing.JDialog {
         refreshTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        // TODO add your handling code here:
-        p = (Project) listaTabla[proyectos.getSelectedRow()][0];
-        SQLiteRemoveProject.deleteProject(p.getId());
-        refreshTable();
-    }//GEN-LAST:event_botonEliminarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAbrir;
-    private javax.swing.JButton botonEliminar;
     private javax.swing.JTextArea descripcionProyecto;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
