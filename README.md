@@ -1,2 +1,2 @@
 # ProMan
-Aplicación de escritorio para la creación y la gestión de proyectos
+Aplicación de escritorio para la creación y la gestión de proyectos software.
